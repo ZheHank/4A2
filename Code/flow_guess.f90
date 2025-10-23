@@ -113,8 +113,8 @@
               l = hypot(lx,ly)
               g%ro(i,j) = ro_guess(i)
               g%roe(i,j) = g%ro(i,j) * (av%cv * (bcs%tstag - v_guess(i)**2 / (2.0 * av%cp)) + 0.5 * v_guess(i)**2)
-              g%rovx(i,j) = g%ro(i,j) * v_guess(i) * lx / l
-              g%rovy(i,j) = -g%ro(i,j) * v_guess(i) * ly / l
+              g%rovx(i,j) = g%ro(i,j) * v_guess(i) * ly / l
+              g%rovy(i,j) = -g%ro(i,j) * v_guess(i) * lx / l
           end do
       end do
               
@@ -132,7 +132,7 @@
       write(6,*) 'Improved flow guess calculated'
       write(6,*) '  At first point ro =', g%ro(1,1), 'roe =', &
           g%roe(1,1), 'rovx =', g%rovx(1,1), 'rovy =', g%rovy(1,1)
-      write(6,*)  
+      write(6,*)
 
       end if
 
