@@ -47,9 +47,9 @@
          do j = 1, nj
             g%x(i,j) = (1.0 - sj(j)) * g%x(i,1) + sj(j) * g%x(i,nj)
             g%y(i,j) = (1.0 - sj(j)) * g%y(i,1) + sj(j) * g%y(i,nj)
-            if (mod(i,10)==0 .and. mod(j,10)==0) then
-               write(6,*) ' mesh point ', i, j, g%x(i,j), g%y(i,j)
-            end if
+            ! if (mod(i,10)==0 .and. mod(j,10)==0) then
+            !    write(6,*) ' mesh point ', i, j, g%x(i,j), g%y(i,j)
+            ! end if
          end do
       end do
 

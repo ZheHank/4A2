@@ -23,13 +23,34 @@
 !     "minval" function or with nested do loops. Print the output to the screen
 !     and flag negative numbers as an error with an if statement to "stop" the
 !     program
-!     INSERT
+!     INSERTED
+      area_min = minval(g%area)
+      if (area_min <= 0.0) then
+         write(6,*) ' ERROR: Negative or zero cell area detected, min area =', area_min
+         stop
+      else
+         write(6,*) '  Minimum cell area =', area_min
+      end if
 
 !     Next check that the sum of the edge vectors around every quadrilateral is 
 !     very nearly zero in both the x and y-coordinate directions. You can
 !     complete this with some elementwise addition of the arrays and use of the
 !     "maxval" and "abs" intrinsic functions.
-!     INSERT
+!     INSERTED
+      dx_error = maxval( abs( g%lx_i(1:ni-1,1:nj-1) + g%lx_j(1:ni-1,1:nj-1) - &
+                              g%lx_i(2:ni,1:nj-1) - g%lx_j(1:ni-1,2:nj) ) )
+      dy_error = maxval( abs( g%ly_i(1:ni-1,1:nj-1) + g%ly_j(1:ni-1,1:nj-1) - &
+                              g%ly_i(2:ni,1:nj-1) - g%ly_j(1:ni-1,2:nj) ) )
+
+      if (dx_error > tol) then
+         write(6,*) ' ERROR: Large x-coordinate closure error detected, dx_error =', dx_error
+         stop
+      end if
+
+      if (dy_error > tol) then
+         write(6,*) ' ERROR: Large y-coordinate closure error detected, dy_error =', dy_error
+         stop
+      end if
 
 !     It may be worthwhile to complete some other checks, the prevous call to
 !     the "write_output" subroutine has written a file that you can read and
