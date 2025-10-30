@@ -31,11 +31,13 @@ def main():
     # Use the "cut_i", "mass_av" AND "area_av" functions to calculate the
     # reference pressures at the inlet plane and therefore the static pressure
     # coefficient
-    # INSERT
+    #INSERT
+    
 
     # Specify the parameters to plot
-    fieldnames = ['cp', 'mach']; 
-    colnames = ['Static pressure coefficient','Mach number']
+    fieldnames = ['cp', 'mach']
+    colnames = ['Static pressure coefficient', 'Mach number']
+
 
     # Plot the calculated non-dimensional parameters to show the flow solution
     for n,name in enumerate(fieldnames):

@@ -1,0 +1,28 @@
+
+ Solver begins on bend case
+
+ Read application variables from file
+   rgas =   287.000000     cp =   1004.50000     cv =   717.500000    
+   CFL =  0.400000006     sfac =  0.200000003    
+   Convergence  d_max =   3.99999990E-05
+   Mesh size  ni =          53 nj =          37
+   Inlet  pstag =   100000.000     tstag =   300.000000     alpha =   0.785397530    
+   Outlet  p_out =   50000.0000    
+
+ Read domain curves from file
+   Curve lengths ni_a =         363 ni_b =          363
+
+ Interpolated mesh from the bounding geometry curves
+
+ Calculated cell areas and facet lengths
+   Overall minimum element size =    5.55545092E-03
+
+   Minimum cell area =   1.87295765E-04
+
+ Improved flow guess calculated
+   At first point ro =   1.31010461     roe =   287917.156     rovx =   164.718460     rovy =   164.718460    
+
+ Time step number            5
+   d_max = 0.000E+00 at i =   1, j =   1, d_avg = 0.000E+00
+ Calculation converged in           5 iterations
+ Calculation completed after           5 iterations
