@@ -21,6 +21,24 @@ def calc_secondary(av,b):
     # your post-processing, save them into the block "b" dictionary alongside
     # mesh coordinates and primary flow variables.
     # INSERT
+    gam = av['gam']; rgas = av['rgas']
+    rho = b['ro']; roe = b['roe']
+
+    # Calculate velocities, Mach number, static and stagnation temperatures and pressures
+    vx = b['rovx'] / b['ro']; vy = b['rovy'] / b['ro']
+    v = (vx**2 + vy**2)**0.5
+    e = b['roe'] / b['ro']
+    b['T'] = (e - 0.5 * v**2) / (av['cv'])
+    b['mach'] = v / (gam * rgas * b['T'])**0.5
+    b['p'] = (roe - 0.5 * rho * (vx**2 + vy**2)) * (gam - 1.0)
+    b['pstag'] = b['p'] * (1 + 0.5 * (gam - 1.0) * b['mach']**2) ** (gam / (gam - 1.0))
+    b['T_0'] = b['T'] * (1 + 0.5 * (gam - 1.0) * b['mach']**2)
+
+    # Calculate flow angle, relative entropy
+    b['alpha'] = np.arctan2(vy,vx) * 180.0 / np.pi
+    s = rgas / (gam - 1.0) * np.log( b['p'] / (rho ** gam) )
+    s_in = sum(s[0]) / len(s[0])
+    b['s/s_in'] = s/s_in
 
     return b
 
@@ -600,7 +618,7 @@ def read_case(filename):
     # Read the size of the mesh
     g['ni'] = np.fromfile(f,dtype=np.int32,count=1).item()
     g['nj'] = np.fromfile(f,dtype=np.int32,count=1).item()
-    ni = g['ni']; nj = g['nj'];
+    ni = g['ni']; nj = g['nj']
     
     # Define the names and sizes of the mesh coordinate fields to read
     fieldnames = ['x','y','area','lx_i','ly_i','lx_j','ly_j']

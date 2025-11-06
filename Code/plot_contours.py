@@ -31,8 +31,11 @@ def main():
     # Use the "cut_i", "mass_av" AND "area_av" functions to calculate the
     # reference pressures at the inlet plane and therefore the static pressure
     # coefficient
-    #INSERT
-    
+    #INSERTED
+    g_in = cut_i(g,0)
+    p_in, _ = area_av(g_in,'p')
+    pstag_in, _ = mass_av(g_in,'pstag')
+    g['cp'] = (g['p'] - p_in) / (pstag_in - p_in)
 
     # Specify the parameters to plot
     fieldnames = ['cp', 'mach']

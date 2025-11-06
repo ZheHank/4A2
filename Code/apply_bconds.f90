@@ -41,8 +41,9 @@
 !     "hstag(1,:)"
 !     INSERTED
       allocate(rho_in(size(bcs%ro)), t_in(size(bcs%ro)), v_in(size(bcs%ro)), e_in(size(bcs%ro)), hstag_in(size(bcs%ro)))
-      allocate(p_in(size(bcs%ro)), roe_in(size(bcs%ro)), vx_in(size(bcs%ro)), vy_in(size(bcs%ro)), rovx_in(size(bcs%ro)), rovy_in(size(bcs%ro)))
-      bcs%rostag = bcs%pstag / (av%rgas * bcs%tstag)
+      allocate(p_in(size(bcs%ro)), roe_in(size(bcs%ro)), vx_in(size(bcs%ro)), vy_in(size(bcs%ro)))
+      allocate(rovx_in(size(bcs%ro)), rovy_in(size(bcs%ro)))
+      ! bcs%rostag = bcs%pstag / (av%rgas * bcs%tstag)
       rho_in = bcs%ro
       t_in = bcs%tstag * (rho_in / bcs%rostag)**(av%gam - 1.0)
       v_in = sqrt(2.0 * av%cp * (bcs%tstag - t_in))
@@ -50,9 +51,9 @@
       hstag_in = av%cp * bcs%tstag
       p_in = rho_in * av%rgas * t_in
       roe_in = rho_in * e_in
-      alpha_rad = bcs%alpha * (3.14159265358979323846 / 180.0)
-      vx_in = v_in * cos(alpha_rad)
-      vy_in = v_in * sin(alpha_rad)
+      ! alpha_rad = bcs%alpha * (3.14159265358979323846 / 180.0)
+      vx_in = v_in * cos(bcs%alpha)
+      vy_in = v_in * sin(bcs%alpha)
       rovx_in = rho_in * vx_in
       rovy_in = rho_in * vy_in
 
