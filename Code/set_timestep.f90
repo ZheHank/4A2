@@ -28,6 +28,9 @@
 !     INSERT
       av%dt = av%cfl * g%l_min / v_max
 
+!     Save calculated value as dt_total -Added
+      av%dt_total = av%dt
+      
 !     Print the calculated timestep and some intermediate values
 !     INSERT
       write(6,*) '   Calculated time step: dt = ', av%dt

@@ -35,6 +35,8 @@
       where(g%wall(1:ni-1,:) .and. g%wall(2:ni,:)) mass_j = 0 
       where(g%wall(:,1:nj-1) .and. g%wall(:,2:nj)) mass_i = 0 
 
+      ! modify to use starting values for Runge-Kutta -Added
+      g%ro = g%ro_start
 !     Update the density with mass fluxes by calling "sum_fluxes"
 !     INSERTED
       call sum_fluxes(av,mass_i,mass_j,g%area,g%ro,g%dro)
@@ -46,6 +48,8 @@
       flux_i = mass_i * 0.5 * (g%hstag(1:ni,1:nj-1) + g%hstag(1:ni,2:nj))
       flux_j = mass_j * 0.5 * (g%hstag(1:ni-1,1:nj) + g%hstag(2:ni,1:nj))
 
+! modify to use starting values for Runge-Kutta -Added
+      g%roe = g%roe_start
 !     Update the internal energy with enthalpy fluxes
 !     INSERT
       call sum_fluxes(av,flux_i,flux_j,g%area,g%roe,g%droe)
@@ -57,6 +61,9 @@
       flux_j = mass_j * 0.5 * (g%vx(1:ni-1,1:nj) + g%vx(2:ni,1:nj)) &
             + 0.5 * (g%p(1:ni-1,1:nj) + g%p(2:ni,1:nj)) * g%lx_j(1:ni-1,1:nj)
 !     Update the x-momentum with momentum flux
+
+! modify to use starting values for Runge-Kutta -Added
+      g%rovx = g%rovx_start
 !     INSERT
       call sum_fluxes(av,flux_i,flux_j,g%area,g%rovx,g%drovx)
 
@@ -67,11 +74,14 @@
       flux_j = mass_j * 0.5 * (g%vy(1:ni-1,1:nj) + g%vy(2:ni,1:nj)) & 
             + 0.5 * (g%p(1:ni-1,1:nj) + g%p(2:ni,1:nj)) * g%ly_j(1:ni-1,1:nj)
 
+! modify to use starting values for Runge-Kutta -Added
+      g%rovy = g%rovy_start
 !     Update the y-momentum with momentum flux
 !     INSERT
       call sum_fluxes(av,flux_i,flux_j,g%area,g%rovy,g%drovy)
 
 !     Add artificial viscosity by smoothing all of the primary flow variables
+
       call smooth_array(av,g%ro)
       call smooth_array(av,g%roe)
       call smooth_array(av,g%rovx)

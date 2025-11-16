@@ -81,6 +81,10 @@
 !         Primary variables at nodes
           real, dimension(:,:), allocatable :: ro, roe, rovx, rovy
 
+!         Primary variables at the start of the timestep for Runge-Kutta
+          real, dimension(:,:), allocatable :: ro_start, roe_start, &
+              rovx_start, rovy_start
+
 !         Variables to hold cell increments
           real, dimension(:,:), allocatable :: dro, droe, drovx, drovy
 
