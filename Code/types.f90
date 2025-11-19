@@ -14,7 +14,7 @@
           real :: rgas, gam, cp, cv, fgam
 
 !         Timestepping, smoothing and other run options
-          real ::  cfl, sfac, dt, d_max, d_avg
+          real ::  cfl, sfac, dt, d_max, d_avg, dt_total
           integer :: nsteps, nstep
 
 !         Reference values of the primary flow variables
@@ -87,6 +87,10 @@
 
 !         Variables to hold cell increments
           real, dimension(:,:), allocatable :: dro, droe, drovx, drovy
+
+!         Variables for deferred correction smoothing
+          real, dimension(:,:), allocatable :: corr_ro, corr_roe, &
+              corr_rovx, corr_rovy
 
 !         Secondary variables at nodes
           real, dimension(:,:), allocatable :: p, hstag, vx, vy 

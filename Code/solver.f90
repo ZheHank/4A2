@@ -22,7 +22,7 @@
       type(t_geometry) :: geom
       type(t_grid) :: g
       real :: d_max = 1, d_avg = 1
-      integer :: nstep, nconv = 5, ncheck = 5, nrkuts = 4
+      integer :: nstep, nconv = 5, ncheck = 5, nrkuts = 4, nrkut
 
 !     Read in the data on the run settings
       call read_settings(av,bcs)
@@ -88,6 +88,14 @@
 !     Start the time stepping do loop for "nsteps". This is now the heart of the
 !     program, you should aim to program anything inside this loop to operate as
 !     efficiently as you can.
+
+!     Initialize correction arrays for deferred correction smoothing
+      allocate(g%corr_ro(g%ni,g%nj), g%corr_roe(g%ni,g%nj), &
+               g%corr_rovx(g%ni,g%nj), g%corr_rovy(g%ni,g%nj))
+      g%corr_ro = 0.0
+      g%corr_roe = 0.0
+      g%corr_rovx = 0.0
+      g%corr_rovy = 0.0
 
 !     Additional: Added runge-kutta here
       do nstep = 1, av%nsteps
