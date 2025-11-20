@@ -82,10 +82,10 @@
 
 !     Add artificial viscosity by smoothing all of the primary flow variables
 
-      call smooth_array(av,g%ro,g%corr_ro)
-      call smooth_array(av,g%roe,g%corr_roe)
-      call smooth_array(av,g%rovx,g%corr_rovx)
-      call smooth_array(av,g%rovy,g%corr_rovy)
+      call smooth_array(av,g%ro,g%corr_ro,av%ro_ref)
+      call smooth_array(av,g%roe,g%corr_roe,av%roe_ref)
+      call smooth_array(av,g%rovx,g%corr_rovx,av%rov_ref)
+      call smooth_array(av,g%rovy,g%corr_rovy,av%rov_ref)
       
 
       end subroutine euler_iteration
