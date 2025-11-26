@@ -38,7 +38,7 @@
           real, dimension(:), allocatable :: p, ro
 
 !         Single value float at the outlet
-          real :: p_out
+          real :: p_out, p_in
 
 !         Block numbers of the inlet and outlet in multi-block extension
           integer :: n_in, n_out

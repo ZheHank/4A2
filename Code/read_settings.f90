@@ -55,7 +55,12 @@ bcs%alpha = bcs%alpha * 3.14159 / 180.0
 bcs%rostag = bcs%pstag / (av%rgas * bcs%tstag)
 !     Read the outlet static pressure and store into the "bcs" datatype
 !     INSERTED
-read(5,*) bcs%p_out
+if(av%casename == 'waves') then
+      read(5,*) bcs%p_in
+else
+
+      read(5,*) bcs%p_out
+end if
 !write(6,*) 'read bcs', bcs%pstag, bcs%tstag, bcs%alpha, bcs%rfin, bcs%p_out
 
 !     Print the settings to check they have been read, you can use this syntax

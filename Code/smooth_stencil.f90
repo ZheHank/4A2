@@ -20,7 +20,7 @@
       real, intent(inout) :: prop(:,:)
       real, dimension(size(prop,1),size(prop,2)) :: prop_avg_2, prop_avg_4
       integer :: ni, nj
-      real, parameter :: fcorr = 0.9999, flinear = 0.2
+      real, parameter :: fcorr = 0.99, flinear = 0.2
       real, dimension(size(prop,1),size(prop,2)), intent(inout) :: corr
       real, dimension(size(prop,1),size(prop,2)) :: corr_total, sfac_loc
       real, intent(in) :: prop_ref
@@ -49,6 +49,8 @@
 
 !     The corner values are not currently smoothed
       prop_avg_2([1,ni],[1,nj]) = prop([1,ni],[1,nj])
+
+      prop_avg_4 = prop_avg_2
 ! Now repeat the process to get a four-point average.(Lagrange interpolation)
       prop_avg_4(3:ni-2, 3:nj-2) = ((-1.0/6.0) * prop(1:ni-4, 3:nj-2) + (2.0/3.0) * prop(2:ni-3, 3:nj-2) + &
                               (2.0/3.0) * prop(4:ni-1, 3:nj-2) + (-1.0/6.0) * prop(5:ni, 3:nj-2))/2 + &
